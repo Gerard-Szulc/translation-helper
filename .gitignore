@@ -28,3 +28,5 @@ dist-ssr
 /front/src/composables/useTranslationsStore.js.map
 /front/src/main.js
 /front/src/main.js.map
+/dist_electron/
+/.vscode/
