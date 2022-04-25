@@ -1,5 +1,5 @@
 <template>
-  <li class="edit" v-if="typeof modelValue === 'string'" @click="handleShowModal">
+  <li class="edit" v-if="typeof modelValue === 'string'" @click="handleShowModal(translationKey)">
     <span>{{ translationKey }}</span>
     <span
         v-for="language in languages"
@@ -7,9 +7,6 @@
     >{{
         getValueByPath(`${language}${SEPARATOR}${translationPath}`, translationTree)
       }}</span>
-    <teleport to="body" v-if="modalVisible">
-
-    </teleport>
   </li>
   <ul v-else-if="modelValue" class="group">
     <aside>
@@ -30,13 +27,12 @@
 </template>
 
 <script setup lang="ts">
-import {defineEmits, ref, toRef, watch} from "vue";
 import {SEPARATOR, useTranslationsStore} from "../composables/useTranslationsStore";
-import TranslationModal from "./translation-modal.vue";
 import {useTranslationModal} from "../composables/useTranslationModal";
+import {ref} from "vue";
 
-const {setValueByPath, getValueByPath, languages, translationTree} = useTranslationsStore()
-const { modalVisible, hideModal, showModal, setModalTranslationPath } = useTranslationModal()
+const {getValueByPath, languages, translationTree} = useTranslationsStore()
+const { setTitle, showModal, setModalTranslationPath } = useTranslationModal()
 
 const props = defineProps<{
   translationKey: string;
@@ -44,11 +40,8 @@ const props = defineProps<{
   translationPath: string;
 }>()
 
-const handleChangeTranslation = ({target: {value}}: any, lang: string) => {
-  setValueByPath(`${lang}${SEPARATOR}${props.translationPath}`, value, translationTree.value)
-}
-
-const handleShowModal = () => {
+const handleShowModal = (modalTitle) => {
+  setTitle(modalTitle)
   setModalTranslationPath(props.translationPath)
   showModal()
 }

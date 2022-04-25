@@ -1,33 +1,34 @@
 <template >
   <div class="modal" @keydown.esc="handleCloseModal" @blur="handleCloseModal">
+    <h3>{{title}}</h3>
     <template v-for="language in languages" :key="`input-${language}.${path}`">
-      <span>{{ language }}</span>
-      <input type="text"
+      <p>{{ language }}</p>
+      <textarea
              :value="getValueByPath(`${language}${SEPARATOR}${path}`, translationTree)"
-             @input="(e) => handleChangeTranslation(e, language)">
+             @input="(e) => handleChangeTranslation(e, language)"/>
     </template>
-
+    <button class="btn btn-primary" style="position: absolute; bottom: 0; right: 0;" @click="handleCloseModal">Close</button>
   </div>
-  <button class="btn btn-primary" @click="handleCloseModal">Close</button>
 </template>
 
 <script setup lang="ts">
 import {SEPARATOR, useTranslationsStore} from "../composables/useTranslationsStore";
 import {useTranslationModal} from "../composables/useTranslationModal";
-const emit = defineEmits(['update:close'])
 const { getValueByPath, translationTree, languages } = useTranslationsStore()
-const { path, handleChangeTranslation } = useTranslationModal()
+const { path, handleChangeTranslation, hideModal, title } = useTranslationModal()
 
 
 
-const handleCloseModal = () => {
-  emit('update:close')
+const handleCloseModal = (e) => {
+  console.log(e)
+  hideModal()
 }
 </script>
 
 <style scoped>
   .modal {
-    position: absolute;
+    padding: 20px;
+    position: fixed;
     height: 50%;
     width: 50%;
     background-color: white;

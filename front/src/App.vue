@@ -67,9 +67,11 @@ const handleExport = async () => {
     </div>
 
   </div>
-  <translation-modal
-      v-if="modalVisible"
-  ></translation-modal>
+  <teleport to="body" v-if="modalVisible">
+    <translation-modal
+        v-if="modalVisible"
+    ></translation-modal>
+  </teleport>
 </template>
 
 <style>
