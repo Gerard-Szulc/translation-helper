@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "include": [
+    "electron/*.ts",
+    "electron/**/*.ts",
+    "front/src/**/*.ts",
+    "front/src/**/*.d.ts",
+    "front/src/**/*.tsx",
+    "front/src/**/*.vue"
+  ],
+  "exclude": [ "node_modules" ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
